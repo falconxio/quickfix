@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/falconxio/quickfix/datadictionary"
+	"github.com/falconxio/quickfix/internal"
 )
 
 //The Session is the primary FIX abstraction for message communication
@@ -45,6 +45,10 @@ type session struct {
 
 	messagePool
 	timestampPrecision TimestampPrecision
+}
+
+func (s *session) SetSeqNumInStore(seqNum int) error {
+	return s.store.SetNextSenderMsgSeqNum(seqNum)
 }
 
 func (s *session) logError(err error) {
